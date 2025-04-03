@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HousingLocation} from './housinglocation';
+import { HousingLocation } from '../../model/housinglocation';
+
 
 
 @Injectable({
@@ -117,5 +118,11 @@ export class HousingService {
   }
   getHousingLocationById(id: number): HousingLocation | undefined {
     return this.casettaList.find((casetta) => casetta.id === id);
+  }
+  
+  submitApplication(firstName: string, lastName: string, email: string) {
+    console.log(
+      `Homes application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`,
+    );
   }
 }

@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
-import { HousingLocation } from '../housinglocation';
-import {HousingService} from '../housing.service';
+
+import { HousingService } from '../../services/housing/housing.service';
+import { HousingLocation } from '../../model/housinglocation';
+
 
 @Component({
   selector: 'app-home',
@@ -17,8 +19,22 @@ export class HomeComponent {
   casettaList: HousingLocation[] = [];
   casettaService: HousingService = inject(HousingService);
 
+  listaCasetteFiltrate: HousingLocation[]= [];
+
+
   constructor() {
     this.casettaList = this.casettaService.getAllHousingLocations();
+    this.listaCasetteFiltrate = this.casettaList;
+  }
+
+  filterResults(text: string) {
+    if (!text) {
+      this.listaCasetteFiltrate = this.casettaList;
+      return;
+    }
+    this.listaCasetteFiltrate = this.casettaList.filter((casetta) =>
+      casetta?.city.toLowerCase().includes(text.toLowerCase()),
+    );
   }
 
 
